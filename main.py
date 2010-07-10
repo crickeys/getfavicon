@@ -293,8 +293,11 @@ class PrintFavicon(BaseHandler):
     memcache.add("icon-" + self.targetDomain, "DEFAULT", )
 
     counter.ChangeCount("favIconsServedDefault",1)
-
-    self.response.out.write(open("default.gif").read())
+    
+    if self.request.get("defaulticon"):
+      self.redirect(self.request.get("defaulticon"))
+    else:
+      self.response.out.write(open("default.gif").read())
   
 
   def get(self):
