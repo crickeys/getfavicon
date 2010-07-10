@@ -44,15 +44,15 @@ class deleteAll(BaseHandler):
   def get(self):
     if self.isDev():
       allfavIconQuery = favIcon.all()
-      favIcons = allfavIconQuery.fetch(1000)
+      favIcons = allfavIconQuery.fetch(500)
       db.delete(favIcons)
 
 
 class cleanup(BaseHandler):
 
   def get(self):
-    iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=30))
-    iconCacheCleanResults = iconCacheCleanQuery.fetch(1000)
+    iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
+    iconCacheCleanResults = iconCacheCleanQuery.fetch(500)
     db.delete(iconCacheCleanResults)
    
 
