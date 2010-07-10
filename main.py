@@ -5,6 +5,7 @@ from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
+from google.appengine.ext.db import stats
 
 from urlparse import urlparse
 from urlparse import urljoin
@@ -63,6 +64,10 @@ class IndexPage(BaseHandler):
     favIconsServedDefault = counter.GetCount("favIconsServedDefault")
     iconFromCache = counter.GetCount("cacheMC") + counter.GetCount("cacheDS")
     iconNotFromCache = counter.GetCount("cacheNone")
+    if stats.GlobalStat.all().get():
+      iconsCached = stats.GlobalStat.all().get().count
+    else:
+      iconsCached = None
     
     favIconsServedM = round(float(favIconsServed) / 1000000,2)
     percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
@@ -71,7 +76,8 @@ class IndexPage(BaseHandler):
     self.printTemplate("index",{
       "favIconsServed":favIconsServedM,
       "percentReal":percentReal,
-      "percentCache":percentCache
+      "percentCache":percentCache,
+      "iconsCached":iconsCached
     })
 
 
