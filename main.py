@@ -52,7 +52,7 @@ class cleanup(BaseHandler):
 
   def get(self):
     iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
-    iconCacheCleanResults = iconCacheCleanQuery.fetch(500)
+    iconCacheCleanResults = iconCacheCleanQuery.fetch(100)
     db.delete(iconCacheCleanResults)
    
 
@@ -74,6 +74,7 @@ class IndexPage(BaseHandler):
     percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
     
     self.printTemplate("index",{
+      "isHomepage":True,
       "favIconsServed":favIconsServedM,
       "percentReal":percentReal,
       "percentCache":percentCache,
@@ -92,6 +93,7 @@ class TestPage(BaseHandler):
         topSites.append(line.replace("\n",""))
     
     self.printTemplate("test",{
+      "isHomepage":False,
       "topSites":topSites
     })
 
