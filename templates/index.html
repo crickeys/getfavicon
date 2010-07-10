@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>getFavicon</title>
+		<style>
+			body {
+				font-family:Helvetica,Arial,sans-serif;
+				font-size:10pt;
+			}
+			pre {
+				font-size:9pt;
+			}
+			#container {
+				width:740px;
+			}
+			h1 {
+				margin-top:0;
+				font-size:18pt;
+			}
+			h2 {
+				font-size:14pt;
+				margin-bottom:0;
+			}
+			h3 {
+				font-size:10pt;
+			}
+			ul {
+				list-style:none;
+				margin:0;
+				padding:0;
+			}
+			img {
+				border:0;
+			}
+			li img {
+				width:16px;
+				height:16px;
+			}
+			#delicious li {
+				display:inline;
+			}
+			dt {
+				font-weight:bold;
+			}
+			dd {
+				margin-left:0;
+			}
+			#shorteg {
+				width:60%
+			}
+			#shorteg li {
+				display:inline;
+			}
+			.ancillary {
+				color:#666;
+				font-size:8pt;
+				padding:0;
+				margin:0;
+				font-weight:normal;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<h1>getFavicon</h1>
+			<p>Retrieves the relevant favicon for a URL, or returns a default icon should it not be able to find it. Works better than the <a href="http://simonwillison.net/2008/Aug/30/favicons/">Google version</a> as it will find favicons specified by an HTML page's <code>&lt;link&gt;</code> element. Feel free to hotlink, although it would be nice if you could <a href="mailto:mail@jasoncartwright.com">email me</a> if you're going to make more than a couple of requests a second.</p>
+			<h2>Instructions</h2>
+			<p>To retrieve a favicon you can hotlink it at...</p>
+			<pre>http://getfavicon.appspot.com/[URL]</pre>
+			<p>Notice the URL contains the protocol (http or https). For example...</p>
+			<pre><a href="http://getfavicon.appspot.com/http://www.google.com">http://getfavicon.appspot.com/http://www.google.com</a></pre>
+			<p>This works well in an <code>&lt;img&gt;</code> tag...</p>
+			<pre>&lt;img src="http://getfavicon.appspot.com/http://www.google.com" alt="Google" width="16" height="16" /&gt;</pre>
+			<h2>URL Generator</h2>
+			<form action="/_do" method="get">
+				<label>Full URL <span class="ancillary">(e.g. http://www.google.com)</span>: <input type="text" name="url" /></label>
+				<input type="submit" value="Get Favicon" />
+			</form>
+			<h2>Examples</h2>
+			<ul>
+				<li><a href="/http://code.google.com/appengine/docs/python/urlfetch/fetchfunction.html"><img src="/http://code.google.com/appengine/docs/python/urlfetch/fetchfunction.html" alt="Google Code"/></a> Google Code</li>
+				<li><a href="/https://twitter.com/jasoncartwright/status/2374528561"><img src="/https://twitter.com/jasoncartwright/status/2374528561" alt="Twitter" /></a> Twitter (retrieved over HTTPS)</li>
+				<li><a href="/http://jasoncartwright.com"><img src="/http://jasoncartwright.com" alt="Author's site"></a> Author's site</li>
+				<li><a href="https://getfavicon.appspot.com/http://docs.python.org/"><img src="https://getfavicon.appspot.com/http://docs.python.org/" alt="Python Docs"></a> Python Docs (delivered using HTTPS)</li>
+				<li><a href="/http://getfavicon.appspot.com"><img src="/http://getfavicon.appspot.com" alt="Getting it's own icon" /></a> Getting it's own icon - before some wiseguy suggests it</li>
+			</ul>
+			<h3>More examples</h3>
+			<ul id="shorteg">
+				<li><a href="/http://www.yahoo.com"><img src="/http://www.yahoo.com" alt="Yahoo" /></a></li>
+				<li><a href="/http://www.google.com"><img src="/http://www.google.com" alt="Google" /></a></li>
+				<li><a href="/http://www.microsoft.com"><img src="/http://www.microsoft.com" alt="Microsoft" /></a></li>
+				<li><a href="/http://www.facebook.com"><img src="/http://www.facebook.com" alt="Facebook" /></a></li>
+				<li><a href="/http://www.youtube.com"><img src="/http://www.youtube.com" alt="YouTube" /></a></li>
+				<li><a href="/http://www.wikipedia.org"><img src="/http://www.wikipedia.org" alt="Wikipedia" /></a></li>
+				<li><a href="/http://www.baidu.com"><img src="/http://www.baidu.com" alt="Baidu" /></a></li>
+				<li><a href="/http://www.myspace.com"><img src="/http://www.myspace.com" alt="MySpace" /></a></li>
+				<li><a href="/http://www.twitter.com"><img src="/http://www.twitter.com" alt="Twitter" /></a></li>
+				<li><a href="/http://www.wordpress.com"><img src="/http://www.wordpress.com" alt="Wordpress" /></a></li>
+				<li><a href="/http://www.bing.com"><img src="/http://www.bing.com" alt="Bing" /></a></li>
+				<li><a href="/http://www.ebay.com"><img src="/http://www.ebay.com" alt="EBay" /></a></li>
+				<li><a href="/http://www.sina.com.cn"><img src="/http://www.sina.com.cn" alt="Sina" /></a></li>
+				<li><a href="/http://www.amazon.com"><img src="/http://www.amazon.com" alt="Amazon" /></a></li>
+				<li><a href="/http://www.craigslist.org"><img src="/http://www.craigslist.org" alt="Craig's List" /></a></li>
+				<li><a href="/http://www.flickr.com"><img src="/http://www.flickr.com" alt="Flickr" /></a></li>
+				<li><a href="/http://www.aol.com"><img src="/http://www.aol.com" alt="AOL" /></a></li>
+				<li><a href="/http://www.hi5.com"><img src="/http://www.hi5.com" alt="Hi5" /></a></li>
+				<li><a href="/http://www.imdb.com"><img src="/http://www.imdb.com" alt="IMDB" /></a></li>
+				<li><a href="/http://www.163.com"><img src="/http://www.163.com" alt="163" /></a></li>
+				<li><a href="/http://www.photobucket.com"><img src="/http://www.photobucket.com" alt="Photobucket" /></a></li>
+				<li><a href="/http://www.bbc.co.uk"><img src="/http://www.bbc.co.uk" alt="BBC" /></a></li>
+				<li><a href="/http://www.ask.com"><img src="/http://www.ask.com" alt="Ask" /></a></li>
+				<li><a href="/http://www.apple.com"><img src="/http://www.apple.com" alt="Apple" /></a></li>
+				<li><a href="/http://www.adobe.com"><img src="/http://www.adobe.com" alt="Adobe" /></a></li>
+				<li><a href="/http://www.cnn.com"><img src="/http://www.cnn.com" alt="CNN" /></a></li>
+				<li><a href="/http://www.youku.com"><img src="/http://www.youku.com" alt="youku.com" /></a></li>
+				<li><a href="/http://www.linkedin.com"><img src="/http://www.linkedin.com" alt="LinkedIn" /></a></li>
+				<li><a href="/http://www.whitehouse.gov"><img src="/http://www.whitehouse.gov" alt="Whitehouse" /></a></li>
+				<li><a href="/http://www.number10.gov.uk"><img src="/http://www.number10.gov.uk" alt="Number 10" /></a></li>
+				<li><a href="/http://play.tm"><img src="/http://play.tm" alt="play.tm" /></a></li>
+				<li><a href="/http://www.mozilla.com"><img src="/http://www.mozilla.com" alt="Mozilla" /></a></li>
+				<li><a href="/http://www.nytimes.com"><img src="/http://www.nytimes.com" alt="New York Times" /></a></li>
+				<li><a href="/http://digg.com"><img src="/http://digg.com" alt="digg" /></a></li>
+				<li><a href="/http://www.weather.com"><img src="/http://www.weather.com" alt="Weather.com" /></a></li>
+				<li><a href="/http://www.answers.com"><img src="/http://www.answers.com" alt="answers.com" /></a></li>
+				<li><a href="/http://www.theregister.co.uk"><img src="/http://www.theregister.co.uk" alt="The Register" /></a></li>
+				<li><a href="/http://www.boingboing.net"><img src="/http://www.boingboing.net" alt="Boing Boing" /></a></li>
+				<li><a href="/http://www.techcrunch.com"><img src="/http://www.techcrunch.com" alt="Tech Crunch" /></a></li>
+				<li><a href="/http://www.mashable.com"><img src="/http://www.mashable.com" alt="Mashable" /></a></li>
+				<li><a href="/http://www.gizmodo.com"><img src="/http://www.gizmodo.com" alt="Gizmodo" /></a></li>
+				<li><a href="/http://www.guardian.co.uk"><img src="/http://www.guardian.co.uk" alt="Guardian" /></a></li>
+				<li><a href="/http://www.telegraph.co.uk"><img src="/http://www.telegraph.co.uk" alt="Telegraph" /></a></li>
+				<li><a href="/http://www.newscientist.com"><img src="/http://www.newscientist.com" alt="New Scientist" /></a></li>
+			</ul>
+			<p>1000 more examples on the <a href="/test/">test page</a></p>
+			<h2>Stats</h2>
+			<p class="ancillary">Updated every minute</p>
+			<dl>
+				<dt>Icons served</dt>
+				<dd>{{ favIconsServed }} million</dd>
+				<dt>Cache hit rate</dt>
+				<dd>{{ percentCache }}%</dd>
+				<dt>Unable to find favicon</dt>
+				<dd>{{ percentReal }}%</dd>
+			</dl>
+			<h2>Implementations</h2>
+			<ul>
+				<li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a> (Greasemonkey script)</li>
+				<li><a href="http://www.jdempster.com">James Dempster</a></li>
+				<li><a href="http://www.jasoncartwright.com">Jason Cartwright</a></li>
+				<li><a href="http://geturlinfo.appspot.com">getURLinfo</a></li>
+				<li><a href="http://play.tm/wire/">play.tm</a></li>
+				<li><a href="http://friedcellcollective.net/outbreak/">Marko Mrdjenovič</a></li>
+				<li><a href="http://hail2u.net">hail2u.net</a></li>
+				<li><a href="https://chrome.google.com/extensions/detail/jdnejaepfmacfdmhkplckpfdcjgbeode">'Yet Another Google Bookmarks Extension'</a></li>
+			</ul>
+			<h2>Known problems</h2>
+			<ul>
+				<li>Sometimes <a href="http://twitter.com/mydogminton/status/2374789273">doesn't get the correct favicon</a> when there are multiple favicons per domain</li>
+				<li>Some dodgy redirect handling when retrieving icon</li>
+				<li>Sometimes returns incorrect MIME type</li>
+				<li><s>Client-side caching is rubbish</s></li>
+				<li><s>Some dicey error handling</s></li>
+			</ul>
+			<h2>Credit</h2>
+			<p>By <a href="http://jasoncartwright.com">Jason</a> from <a href="http://www.potatolondon.com">Potato London</a></p>
+			<h3>Built using</h3>
+			<ul>
+				<li><a href="http://code.google.com/appengine/">Google App Engine</a></li>
+				<li><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		try {
+		var pageTracker = _gat._getTracker("UA-73346-14");
+		pageTracker._trackPageview();
+		} catch(err) {}</script>
+	</body>
+</html>
