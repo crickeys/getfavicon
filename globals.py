@@ -10,4 +10,4 @@ MC_CACHE_TIME = 2419200 #seconds (28 days)
 DS_CACHE_TIME = 28 #days
 
 # Surpresses the index and test pages
-HEADLESS = True
+HEADLESS = False
