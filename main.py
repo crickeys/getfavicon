@@ -37,6 +37,9 @@ class BaseHandler(webapp.RequestHandler):
    
   def isDev(self):
     return os.environ.get("SERVER_SOFTWARE","").startswith("Development")
+    
+  def headlessDenial(self):
+    self.error(404)
  
     
 class deleteAll(BaseHandler):
@@ -60,42 +63,54 @@ class IndexPage(BaseHandler):
   
   def get(self):
     
-    favIconsServed = counter.GetCount("favIconsServed")
-    favIconsServedDefault = counter.GetCount("favIconsServedDefault")
-    iconFromCache = counter.GetCount("cacheMC") + counter.GetCount("cacheDS")
-    iconNotFromCache = counter.GetCount("cacheNone")
-    if stats.GlobalStat.all().get():
-      iconsCached = stats.GlobalStat.all().get().count
+    if HEADLESS:
+      
+      self.headlessDenial()
+      
     else:
-      iconsCached = None
     
-    favIconsServedM = round(float(favIconsServed) / 1000000,2)
-    percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
-    percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
+      favIconsServed = counter.GetCount("favIconsServed")
+      favIconsServedDefault = counter.GetCount("favIconsServedDefault")
+      iconFromCache = counter.GetCount("cacheMC") + counter.GetCount("cacheDS")
+      iconNotFromCache = counter.GetCount("cacheNone")
+      if stats.GlobalStat.all().get():
+        iconsCached = stats.GlobalStat.all().get().count
+      else:
+        iconsCached = None
     
-    self.printTemplate("index",{
-      "isHomepage":True,
-      "favIconsServed":favIconsServedM,
-      "percentReal":percentReal,
-      "percentCache":percentCache,
-      "iconsCached":iconsCached
-    })
+      favIconsServedM = round(float(favIconsServed) / 1000000,2)
+      percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
+      percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
+    
+      self.printTemplate("index",{
+        "isHomepage":True,
+        "favIconsServed":favIconsServedM,
+        "percentReal":percentReal,
+        "percentCache":percentCache,
+        "iconsCached":iconsCached
+      })
 
 
 class TestPage(BaseHandler):
 
   def get(self):
     
-    topSites = []
-    topSitesFile = open("topsites.txt")
+    if HEADLESS:
+      
+      self.headlessDenial()
     
-    for line in topSitesFile:
-        topSites.append(line.replace("\n",""))
+    else: 
+
+      topSites = []
+      topSitesFile = open("topsites.txt")
     
-    self.printTemplate("test",{
-      "isHomepage":False,
-      "topSites":topSites
-    })
+      for line in topSitesFile:
+          topSites.append(line.replace("\n",""))
+    
+      self.printTemplate("test",{
+        "isHomepage":False,
+        "topSites":topSites
+      })
 
     
 class PrintFavicon(BaseHandler):
