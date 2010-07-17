@@ -247,7 +247,9 @@ class PrintFavicon(BaseHandler):
           
           self.icon = pagePathFaviconResult.content
           self.cacheIcon()
-          self.writeIcon()      
+          self.writeIcon()
+          
+          return True  
         
     return False
       
