@@ -31,7 +31,7 @@
 	</ul>
 	
 	<h3>More examples</h3>
-	<ul id="shorteg">
+	<ul class="icons">
 		<li><a href="/http://www.yahoo.com"><img src="/http://www.yahoo.com" alt="Yahoo" /></a></li>
 		<li><a href="/http://www.google.com"><img src="/http://www.google.com" alt="Google" /></a></li>
 		<li><a href="/http://www.microsoft.com"><img src="/http://www.microsoft.com" alt="Microsoft" /></a></li>
@@ -78,6 +78,14 @@
 		<li><a href="/http://www.newscientist.com"><img src="/http://www.newscientist.com" alt="New Scientist" /></a></li>
 	</ul>
 	<p>1000 more examples on the <a href="/test/">test page</a>.</p>
+	
+	<h3>Last cached icons</h3>
+	<ul class="icons">
+		{% for icon in lastServedIcons %}
+		<li><a href="/{{ icon.domain|escape }}"><img src="/{{ icon.domain|escape }}" alt="{{ icon.domain|escape }}" /></a></li>
+		{% endfor %}
+	</ul>
+	
 	<h2>Stats</h2>
 	<p class="ancillary">Updated every minute</p>
 	<dl>
@@ -90,6 +98,7 @@
 		<dt>Unable to find favicon</dt>
 		<dd>{{ percentReal }}%</dd>
 	</dl>
+	
 	<h2>Implementations</h2>
 	<ul>
 		<li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a> (Greasemonkey script)</li>
@@ -101,6 +110,7 @@
 		<li><a href="http://hail2u.net">hail2u.net</a></li>
 		<li><a href="https://chrome.google.com/extensions/detail/jdnejaepfmacfdmhkplckpfdcjgbeode">'Yet Another Google Bookmarks Extension'</a></li>
 	</ul>
+	
 	<h2>Known problems</h2>
 	<ul>
 		<li>Sometimes <a href="http://twitter.com/mydogminton/status/2374789273">doesn't get the correct favicon</a> when there are multiple favicons per domain</li>
@@ -109,8 +119,10 @@
 		<li><s>Client-side caching is rubbish</s></li>
 		<li><s>Some dicey error handling</s></li>
 	</ul>
+	
 	<h2>Credit</h2>
 	<p>By <img src="/http://www.jasoncartwright.com"/> <a href="http://www.jasoncartwright.com">Jason</a> from <img src="/http://www.potatolondon.com"/> <a href="http://www.potatolondon.com">Potato London</a></p>
+	
 	<h3>Built using</h3>
 	<ul>
 		<li><img src="/http://code.google.com"/> <a href="http://code.google.com/appengine/">Google App Engine</a></li>

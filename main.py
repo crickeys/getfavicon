@@ -68,16 +68,24 @@ class IndexPage(BaseHandler):
       self.headlessDenial()
       
     else:
-    
+      
+      # Last served icons query
+      lastServedIconsQuery = favIcon.gql("where useDefault = False order by dateCreated desc")
+      lastServedIcons = lastServedIconsQuery.fetch(44)
+      
+      # Retrieve counters
       favIconsServed = counter.GetCount("favIconsServed")
       favIconsServedDefault = counter.GetCount("favIconsServedDefault")
       iconFromCache = counter.GetCount("cacheMC") + counter.GetCount("cacheDS")
       iconNotFromCache = counter.GetCount("cacheNone")
+      
+      # Datastore stats
       if stats.GlobalStat.all().get():
         iconsCached = stats.GlobalStat.all().get().count
       else:
         iconsCached = None
     
+      # Icon calculations
       favIconsServedM = round(float(favIconsServed) / 1000000,2)
       percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
       percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
@@ -87,7 +95,8 @@ class IndexPage(BaseHandler):
         "favIconsServed":favIconsServedM,
         "percentReal":percentReal,
         "percentCache":percentCache,
-        "iconsCached":iconsCached
+        "iconsCached":iconsCached,
+        "lastServedIcons":lastServedIcons
       })
 
 
