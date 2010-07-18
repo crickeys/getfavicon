@@ -71,7 +71,7 @@ class IndexPage(BaseHandler):
       
       # Last served icons query
       lastServedIconsQuery = favIcon.gql("where useDefault = False order by dateCreated desc")
-      lastServedIcons = lastServedIconsQuery.fetch(44)
+      lastServedIcons = lastServedIconsQuery.fetch(22)
       
       # Retrieve counters
       favIconsServed = counter.GetCount("favIconsServed")
