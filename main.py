@@ -138,7 +138,7 @@ class PrintFavicon(BaseHandler):
       
       if mcIcon == "DEFAULT":
         
-        self.writeDefault()
+        self.writeDefault(True)
         
         return True
         
@@ -166,7 +166,7 @@ class PrintFavicon(BaseHandler):
       
       if iconCache[0].useDefault:
         
-        self.writeDefault()
+        self.writeDefault(True)
         return True
         
       else:
@@ -314,21 +314,23 @@ class PrintFavicon(BaseHandler):
     self.response.out.write(self.icon)
   
   
-  def writeDefault(self):
+  def writeDefault(self, fromCache = False):
     
     inf("Writing default")
     
     self.writeHeaders()
 
-    newFavicon = favIcon(
-      domain = self.targetDomain,
-      icon = None,
-      useDefault = True,
-      referrer = self.request.headers.get("Referer")
-    )
-    newFavicon.put()
+    if not fromCache:
+      
+      newFavicon = favIcon(
+        domain = self.targetDomain,
+        icon = None,
+        useDefault = True,
+        referrer = self.request.headers.get("Referer")
+      )
+      newFavicon.put()
 
-    memcache.add("icon-" + self.targetDomain, "DEFAULT", )
+      memcache.add("icon-" + self.targetDomain, "DEFAULT", )
 
     counter.ChangeCount("favIconsServedDefault",1)
     
