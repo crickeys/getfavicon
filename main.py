@@ -243,9 +243,17 @@ class PrintFavicon(BaseHandler):
     
     if rootDomainPageResult.status_code == 200:
       
-      pageSoup = BeautifulSoup.BeautifulSoup(rootDomainPageResult.content)
-      pageSoupIcon = pageSoup.findAll("link",rel=re.compile("shortcut|icon|shortcut icon",re.IGNORECASE))
-      
+      try:
+        
+        pageSoup = BeautifulSoup.BeautifulSoup(rootDomainPageResult.content)
+        pageSoupIcon = pageSoup.findAll("link",rel=re.compile("shortcut|icon|shortcut icon",re.IGNORECASE))
+        
+      except:
+        
+        self.writeDefault()
+        return False
+        
+              
       if len(pageSoupIcon) > 0:
         
         pageIconPath = urljoin(self.targetPath,pageSoupIcon[0]["href"])
