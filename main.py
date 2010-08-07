@@ -190,8 +190,8 @@ class PrintFavicon(BaseHandler):
     try:
       
       rootDomainFaviconResult = urlfetch.fetch(
-        rootIconPath,
-        follow_redirects = False
+        url = rootIconPath,
+        follow_redirects = False,
       )
       
     except:
@@ -231,8 +231,8 @@ class PrintFavicon(BaseHandler):
     try:
       
       rootDomainPageResult = urlfetch.fetch(
-        url=self.targetPath,
-        follow_redirects = True
+        url = self.targetPath,
+        follow_redirects = True,
       )
       
     except:
@@ -250,9 +250,21 @@ class PrintFavicon(BaseHandler):
         
         pageIconPath = urljoin(self.targetPath,pageSoupIcon[0]["href"])
         
-        pagePathFaviconResult = urlfetch.fetch(pageIconPath)
+        inf("Found unconfirmed iconInPage at %s" % pageIconPath)
+        
+        try:
+          
+          pagePathFaviconResult = urlfetch.fetch(pageIconPath)
+          
+        except:
+
+          inf("Failed to retrieve icon to found in page")
+
+          return False
       
         if pagePathFaviconResult.status_code == 200 and len(pagePathFaviconResult.content) > 0 and len(pagePathFaviconResult.content) < 20000:
+          
+          inf("Got iconInPage, length %d bytes" % (len(pagePathFaviconResult.content)))
           
           self.icon = pagePathFaviconResult.content
           self.cacheIcon()
