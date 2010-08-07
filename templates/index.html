@@ -12,14 +12,18 @@
 	<pre><a href="http://getfavicon.appspot.com/http://www.google.com">http://getfavicon.appspot.com/http://www.google.com</a></pre>
 	<p>This works well in an <code>&lt;img&gt;</code> tag...</p>
 	<pre>&lt;img src="http://getfavicon.appspot.com/http://www.google.com" alt="Google" width="16" height="16" /&gt;</pre>
+	
+	<h3>Escaping</h3>
+	<p>Of course, you'll need to escape the URL you want the favicon for. E.g...</p>
+	<pre>http://getfavicon.appspot.com/http://www.google.com/search%3Fq%3Durlencode</pre>
+	
+	<h3>Default icon</h3>
 	<p>You can also specify a default icon to be displayed should the favicon not be found...</p>
 	<pre>http://getfavicon.appspot.com/http://www.google.com?defaulticon=http://en.wikipedia.org/favicon.ico</pre>
 	
-	<h2>URL Generator</h2>
-	<form action="/_do" method="get">
-		<label>Full URL <span class="ancillary">(e.g. http://www.google.com)</span>: <input type="text" name="url" /></label>
-		<input type="submit" value="Get Favicon" />
-	</form>
+	<h3>Multiple domains</h3>
+	<p>To improve the performance of pages with many favicons on them you can overcome <a href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">browser connection limits</a> by pointing to the icon on different domains. You can see this in action on the <a href="/test/">test page</a> where we use the first letter of the domain to generate a subdomain name. The domains are of the format...</p>
+	<pre>http://[whatever].getfavicon.appspot.com/[URL]</pre>
 	
 	<h2>Examples</h2>
 	<ul>
@@ -82,7 +86,7 @@
 	<h3>Last cached icons</h3>
 	<ul class="icons">
 		{% for icon in lastServedIcons %}
-		<li><a href="/{{ icon.domain|escape }}"><img src="/{{ icon.domain|escape }}" alt="{{ icon.domain|escape }}" /></a></li>
+		<li><a href="{{ icon.domain|escape }}"><img src="/{{ icon.domain|escape }}" alt="{{ icon.domain|escape }}" /></a></li>
 		{% endfor %}
 	</ul>
 	

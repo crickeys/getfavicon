@@ -114,7 +114,7 @@ class TestPage(BaseHandler):
       topSitesFile = open("topsites.txt")
     
       for line in topSitesFile:
-          topSites.append(line.replace("\n",""))
+        topSites.append(line.replace("\n",""))
     
       self.printTemplate("test",{
         "isHomepage":False,
