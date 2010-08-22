@@ -100,6 +100,17 @@ class IndexPage(BaseHandler):
       })
 
 
+class Decache(BaseHandler):
+  
+  def get(self):
+    
+    domain = self.request.get("domain")
+    memcache.delete("icon-" + domain)
+    
+    deleteQuery = db.GqlQuery("SELECT __key__ FROM favIcon WHERE domain = :1", domain)
+    db.delete(deleteQuery.fetch(100))
+    
+
 class TestPage(BaseHandler):
 
   def get(self):
@@ -388,6 +399,7 @@ def main():
   application = webapp.WSGIApplication(
   [
     ('/', IndexPage),
+    ('/decache/', Decache),
     ('/test/', TestPage),
     ('/_cleanup', cleanup),
     ('/_deleteall', deleteAll),

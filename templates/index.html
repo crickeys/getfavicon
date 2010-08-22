@@ -25,6 +25,9 @@
 	<p>To improve the performance of pages with many favicons on them you can overcome <a href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">browser connection limits</a> by pointing to the icon on different domains. You can see this in action on the <a href="/test/">test page</a> where we use the first letter of the domain to generate a subdomain name. The domains are of the format...</p>
 	<pre>http://[whatever].getfavicon.appspot.com/[URL]</pre>
 	
+	<h3>De-cache</h3>
+	<p>You can remove an icon from the cache by calling <code>/decache/?domain=[domain]</code>. E.g. <a href="/decache/?domain=http://www.google.com">/decache/?domain=http://www.google.com</a>.</p>
+	
 	<h2>Examples</h2>
 	<ul>
 		<li><a href="/http://code.google.com/appengine/docs/python/urlfetch/fetchfunction.html"><img src="/http://code.google.com/appengine/docs/python/urlfetch/fetchfunction.html" alt="Google Code"/></a> Google Code</li>
