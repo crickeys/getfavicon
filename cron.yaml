@@ -1,4 +1,4 @@
 cron:
-- description: Hourly cache cleanup
+- description: Cache cleanup
   url: /_cleanup
   schedule: every 1 minutes

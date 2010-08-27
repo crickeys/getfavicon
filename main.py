@@ -55,7 +55,7 @@ class cleanup(BaseHandler):
 
   def get(self):
     iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
-    iconCacheCleanResults = iconCacheCleanQuery.fetch(100)
+    iconCacheCleanResults = iconCacheCleanQuery.fetch(500)
     db.delete(iconCacheCleanResults)
    
 
