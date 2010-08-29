@@ -366,8 +366,17 @@ class PrintFavicon(BaseHandler):
     counter.ChangeCount("favIconsServedDefault",1)
     
     if self.request.get("defaulticon"):
-      self.redirect(self.request.get("defaulticon"))
+      
+      if self.request.get("defaulticon") == "none":
+        
+        self.response.set_status(204)
+        
+      else:
+        
+        self.redirect(self.request.get("defaulticon"))
+        
     else:
+      
       self.response.out.write(open("default.gif").read())
   
 

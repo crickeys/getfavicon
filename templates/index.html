@@ -18,8 +18,9 @@
 	<pre>http://getfavicon.appspot.com/http://www.google.com/search%3Fq%3Durlencode</pre>
 	
 	<h3>Default icon</h3>
-	<p>You can also specify a default icon to be displayed should the favicon not be found...</p>
+	<p>You can specify a default icon to be displayed should the favicon not be found...</p>
 	<pre>http://getfavicon.appspot.com/http://www.google.com?defaulticon=http://en.wikipedia.org/favicon.ico</pre>
+	<p>If you pass <code>?defaulticon=none</code> then no default icon will be returned (and an HTTP 204 "No content" response code).</p>
 	
 	<h3>Multiple domains</h3>
 	<p>To improve the performance of pages with many favicons on them you can overcome <a href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">browser connection limits</a> by pointing to the icon on different domains. You can see this in action on the <a href="/test/">test page</a> where we use the first letter of the domain to generate a subdomain name. The domains are of the format...</p>
