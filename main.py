@@ -45,7 +45,11 @@ class BaseHandler(webapp.RequestHandler):
 class deleteAll(BaseHandler):
   
   def get(self):
+    
     if self.isDev():
+      
+      memcache.flush_all()
+      
       allfavIconQuery = favIcon.all()
       favIcons = allfavIconQuery.fetch(500)
       db.delete(favIcons)
@@ -202,7 +206,7 @@ class PrintFavicon(BaseHandler):
       
       rootDomainFaviconResult = urlfetch.fetch(
         url = rootIconPath,
-        follow_redirects = False,
+        follow_redirects = True,
       )
       
     except:
@@ -257,17 +261,25 @@ class PrintFavicon(BaseHandler):
       try:
         
         pageSoup = BeautifulSoup.BeautifulSoup(rootDomainPageResult.content)
-        pageSoupIcon = pageSoup.findAll("link",rel=re.compile("shortcut|icon|shortcut icon",re.IGNORECASE))
+        pageSoupIcon = pageSoup.find("link",rel=re.compile("^(shortcut|icon|shortcut icon)$",re.IGNORECASE))
         
       except:
         
         self.writeDefault()
         return False
-        
-              
-      if len(pageSoupIcon) > 0:
-        
-        pageIconPath = urljoin(self.targetPath,pageSoupIcon[0]["href"])
+               
+      if pageSoupIcon:
+                        
+        pageIconHref = pageSoupIcon.get("href")
+
+        if pageIconHref:
+                    
+          pageIconPath = urljoin(self.targetPath,pageIconHref)
+          
+        else:
+          
+          inf("No icon found in page")
+          return False
         
         inf("Found unconfirmed iconInPage at %s" % pageIconPath)
         
@@ -360,7 +372,7 @@ class PrintFavicon(BaseHandler):
   
 
   def get(self):
-    
+        
     counter.ChangeCount("favIconsServed",1)
 
     # Get page path
