@@ -375,6 +375,10 @@ class PrintFavicon(BaseHandler):
       if self.request.get("defaulticon") == "none":
         
         self.response.set_status(204)
+      
+      elif self.request.get("defaulticon") == "1pxgif":
+        
+        self.response.out.write(open("1px.gif").read())
         
       else:
         
