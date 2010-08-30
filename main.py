@@ -58,9 +58,14 @@ class deleteAll(BaseHandler):
 class cleanup(BaseHandler):
 
   def get(self):
+    
+    # Cleanup DS cache
     iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
     iconCacheCleanResults = iconCacheCleanQuery.fetch(500)
     db.delete(iconCacheCleanResults)
+    
+    # Update Counts
+    counter.UpdateDSCounters()
    
 
 class IndexPage(BaseHandler):
@@ -293,7 +298,7 @@ class PrintFavicon(BaseHandler):
 
           return False
       
-        if pagePathFaviconResult.status_code == 200 and len(pagePathFaviconResult.content) > 0 and len(pagePathFaviconResult.content) < 20000:
+        if pagePathFaviconResult.status_code == 200 and len(pagePathFaviconResult.content) > 100 and len(pagePathFaviconResult.content) < 20000:
           
           inf("Got iconInPage, length %d bytes" % (len(pagePathFaviconResult.content)))
           

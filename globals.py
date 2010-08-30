@@ -11,3 +11,11 @@ DS_CACHE_TIME = 90 #days
 
 # Surpresses the index and test pages
 HEADLESS = False
+
+COUNTERS = [
+  "favIconsServed",
+  "favIconsServedDefault",
+  "cacheNone",
+  "cacheMC",
+  "cacheDS",
+]
