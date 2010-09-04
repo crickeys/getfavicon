@@ -138,11 +138,40 @@ class TestPage(BaseHandler):
     
       self.printTemplate("test",{
         "isHomepage":False,
-        "topSites":topSites
+        "topSites":topSites,
+        "isDev":self.isDev()
       })
 
     
 class PrintFavicon(BaseHandler):
+  
+  def isValidIconResponse(self,iconResponse):
+        
+    iconLength = len(iconResponse.content)
+    
+    iconContentType = iconResponse.headers.get("Content-Type")
+    if iconContentType:
+      iconContentType = iconContentType.split(";")[0]
+    
+    invalidIconReason = []
+    
+    if not iconResponse.status_code == 200:
+      invalidIconReason.append("Status code isn't 200")
+      
+    if iconContentType in ICON_MIMETYPE_BLACKLIST:
+      invalidIconReason.append("Content-Type in ICON_MIMETYPE_BLACKLIST")
+    
+    if iconLength < MIN_ICON_LENGTH:
+      invalidIconReason.append("Length below MIN_ICON_LENGTH")
+    
+    if iconLength > MAX_ICON_LENGTH:
+      invalidIconReason.append("Length greater than MAX_ICON_LENGTH")
+    
+    if len(invalidIconReason) > 0:
+      inf("Invalid icon because: %s" % invalidIconReason)
+      return False
+    else:
+      return True
   
   
   def iconInMC(self):
@@ -219,28 +248,17 @@ class PrintFavicon(BaseHandler):
       inf("Failed to retrieve iconAtRoot")
       
       return False
-    
+
+    if self.isValidIconResponse(rootDomainFaviconResult):
+          
+      self.icon = rootDomainFaviconResult.content
+      self.cacheIcon()
+      self.writeIcon()
       
-    if rootDomainFaviconResult.status_code == 200:
+      return True
       
-      inf("Got iconAtRoot, length %d bytes" % (len(rootDomainFaviconResult.content)))
-      
-      if len(rootDomainFaviconResult.content) > 0:
-      
-        self.icon = rootDomainFaviconResult.content
-        self.cacheIcon()
-        self.writeIcon()
-      
-        return True
-      
-      else:
-        
-        return False
-    
     else:
-      
-      inf("No iconAtRoot")
-      
+        
       return False
   
   
@@ -297,16 +315,14 @@ class PrintFavicon(BaseHandler):
           inf("Failed to retrieve icon to found in page")
 
           return False
-      
-        if pagePathFaviconResult.status_code == 200 and len(pagePathFaviconResult.content) > 100 and len(pagePathFaviconResult.content) < 20000:
-          
-          inf("Got iconInPage, length %d bytes" % (len(pagePathFaviconResult.content)))
+
+        if self.isValidIconResponse(pagePathFaviconResult):
           
           self.icon = pagePathFaviconResult.content
           self.cacheIcon()
           self.writeIcon()
-          
-          return True  
+        
+          return True
         
     return False
       

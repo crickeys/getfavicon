@@ -6,7 +6,7 @@
 
 <ul class="icons">
 {% for topSite in topSites %}
-	<li><a href="{{ topSite }}"><img src="//{{ topSite.11 }}.getfavicon.appspot.com/{{ topSite }}" alt="{{ topSite }}"/></a></li>
+	<li><a href="{{ topSite }}"><img src="{% if not isDev %}//{{ topSite.11 }}.getfavicon.appspot.com{% endif %}/{{ topSite }}" alt="{{ topSite }}"/></a></li>
 {% endfor %}
 </ul>
 
