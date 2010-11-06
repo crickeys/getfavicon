@@ -1,0 +1,3 @@
+queue:
+- name: doCleanup
+  rate: 1/s

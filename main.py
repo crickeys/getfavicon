@@ -6,6 +6,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
 from google.appengine.ext.db import stats
+from google.appengine.api.labs import taskqueue
 
 from urlparse import urlparse
 from urlparse import urljoin
@@ -51,7 +52,7 @@ class deleteAll(BaseHandler):
       memcache.flush_all()
       
       allfavIconQuery = favIcon.all()
-      favIcons = allfavIconQuery.fetch(500)
+      favIcons = allfavIconQuery.fetch(250)
       db.delete(favIcons)
 
 
@@ -59,14 +60,27 @@ class cleanup(BaseHandler):
 
   def get(self):
     
-    # Cleanup DS cache
-    iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
-    iconCacheCleanResults = iconCacheCleanQuery.fetch(500)
-    db.delete(iconCacheCleanResults)
+    for i in range(25):
+      taskqueue.add(
+        queue_name='doCleanup',
+        url='/_doCleanup',
+        method='GET'
+      )
     
     # Update Counts
     counter.UpdateDSCounters()
-   
+
+
+class doCleanup(BaseHandler):
+
+  def get(self):
+
+    # Cleanup DS cache
+    iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
+    iconCacheCleanResults = iconCacheCleanQuery.fetch(200)
+    db.delete(iconCacheCleanResults)
+    inf("Deleted %d old icon caches in DS" % len(iconCacheCleanResults))
+
 
 class IndexPage(BaseHandler):
   
@@ -452,6 +466,7 @@ def main():
     ('/decache/', Decache),
     ('/test/', TestPage),
     ('/_cleanup', cleanup),
+    ('/_doCleanup', doCleanup),
     ('/_deleteall', deleteAll),
     ('/.*', PrintFavicon),
   ],
