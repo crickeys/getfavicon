@@ -60,7 +60,7 @@ class cleanup(BaseHandler):
 
   def get(self):
     
-    for i in range(25):
+    for i in range(5):
       taskqueue.add(
         queue_name='doCleanup',
         url='/_doCleanup',
@@ -77,7 +77,7 @@ class doCleanup(BaseHandler):
 
     # Cleanup DS cache
     iconCacheCleanQuery = favIcon.gql("where dateCreated < :1",datetime.now()-timedelta(days=DS_CACHE_TIME))
-    iconCacheCleanResults = iconCacheCleanQuery.fetch(200)
+    iconCacheCleanResults = iconCacheCleanQuery.fetch(100)
     db.delete(iconCacheCleanResults)
     inf("Deleted %d old icon caches in DS" % len(iconCacheCleanResults))
 
