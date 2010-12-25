@@ -7,7 +7,7 @@ cri = logging.critical
 
 SHARDS_PER_COUNTER = 1000
 MC_CACHE_TIME = 2419200 #seconds (28 days)
-DS_CACHE_TIME = 90 #days
+DS_CACHE_TIME = 180 #days
 
 MIN_ICON_LENGTH = 100
 MAX_ICON_LENGTH = 20000
