@@ -20,7 +20,13 @@
 	<h3>Default icon</h3>
 	<p>You can specify a default icon to be displayed should the favicon not be found...</p>
 	<pre>http://getfavicon.appspot.com/http://www.google.com?defaulticon=http://en.wikipedia.org/favicon.ico</pre>
-	<p>If you pass <code>?defaulticon=none</code> then no default icon will be returned (and an HTTP 204 "No content" response code), <code>?defaulticon=1pxgif</code> will return a 200 response and a 1x1 pixel GIF file.</p>
+	<p>You can also pass the following <code>defaulticon</code> values for other responses when a favicon isn't found:</p>
+	<ul>
+		<li><code>none</code>: no default icon will be returned (and an HTTP 204 "No content" response code)</li>
+		<li><code>1pxgif</code>: 1px x 1px transparent GIF</li>
+		<li><code>lightpng</code>: grey 'world' icon (as used by Google Chrome)</li>
+		<li><code>bluepng</code>: light blue 'world' icon (as used by Google's favicon service)</li>
+	</ul>
 	
 	<h3>Multiple domains</h3>
 	<p>To improve the performance of pages with many favicons on them you can overcome <a href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">browser connection limits</a> by pointing to the icon on different domains. You can see this in action on the <a href="/test/">test page</a> where we use the first letter of the domain to generate a subdomain name. The domains are of the format...</p>
@@ -109,6 +115,8 @@
 	
 	<h2>Implementations</h2>
 	<ul>
+		<li><a href="http://duckduckgo.com">DuckDuckGo</a></li>
+		<li><a href="http://www.mediauk.com">Media UK</a></li>
 		<li><a href="http://userscripts.org/scripts/show/40120">Google Reader Favicon ++</a> (Greasemonkey script)</li>
 		<li><a href="http://www.jdempster.com">James Dempster</a></li>
 		<li><a href="http://www.jasoncartwright.com">Jason Cartwright</a></li>
@@ -118,7 +126,6 @@
 		<li><a href="http://hail2u.net">hail2u.net</a></li>
 		<li><a href="https://chrome.google.com/extensions/detail/jdnejaepfmacfdmhkplckpfdcjgbeode">'Yet Another Google Bookmarks Extension'</a></li>
 		<li><a href="http://ultimatestatusbar.com">Ultimate Status Bar</a> (Safari extension)</li>
-		<li><a href="http://duckduckgo.com">DuckDuckGo</a></li>
 	</ul>
 	
 	<h2>Known problems</h2>
