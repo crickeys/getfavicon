@@ -110,6 +110,7 @@ class IndexPage(BaseHandler):
     
       # Icon calculations
       favIconsServedM = round(float(favIconsServed) / 1000000,2)
+      iconsCachedM = round(float(iconsCached) / 1000000,2)
       percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
       percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
     
@@ -118,7 +119,7 @@ class IndexPage(BaseHandler):
         "favIconsServed":favIconsServedM,
         "percentReal":percentReal,
         "percentCache":percentCache,
-        "iconsCached":iconsCached,
+        "iconsCached":iconsCachedM,
         "lastServedIcons":lastServedIcons
       })
 
