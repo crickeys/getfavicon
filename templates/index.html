@@ -7,19 +7,19 @@
 	
 	<h2>Instructions</h2>
 	<p>To retrieve a favicon you can hotlink it at...</p>
-	<pre>http://getfavicon.appspot.com/[URL]</pre>
+	<pre>http://g.etfv.co/[URL]</pre>
 	<p>Notice the URL contains the protocol (http or https). For example...</p>
-	<pre><a href="http://getfavicon.appspot.com/http://www.google.com">http://getfavicon.appspot.com/http://www.google.com</a></pre>
+	<pre><a href="http://g.etfv.co/http://www.google.com">http://g.etfv.co/http://www.google.com</a></pre>
 	<p>This works well in an <code>&lt;img&gt;</code> tag...</p>
-	<pre>&lt;img src="http://getfavicon.appspot.com/http://www.google.com" alt="Google" width="16" height="16" /&gt;</pre>
+	<pre>&lt;img src="http://g.etfv.co/http://www.google.com" alt="Google" width="16" height="16" /&gt;</pre>
 	
 	<h3>Escaping</h3>
 	<p>Of course, you'll need to escape the URL you want the favicon for. E.g...</p>
-	<pre>http://getfavicon.appspot.com/http://www.google.com/search%3Fq%3Durlencode</pre>
+	<pre>http://g.etfv.co/http://www.google.com/search%3Fq%3Durlencode</pre>
 	
 	<h3>Default icon</h3>
 	<p>You can specify a default icon to be displayed should the favicon not be found...</p>
-	<pre>http://getfavicon.appspot.com/http://www.google.com?defaulticon=http://en.wikipedia.org/favicon.ico</pre>
+	<pre>http://g.etfv.co/http://www.google.com?defaulticon=http://en.wikipedia.org/favicon.ico</pre>
 	<p>You can also pass the following <code>defaulticon</code> values for other responses when a favicon isn't found:</p>
 	<ul>
 		<li><code>none</code>: no default icon will be returned (and an HTTP 204 "No content" response code)</li>
@@ -27,6 +27,12 @@
 		<li><code>lightpng</code>: grey 'world' icon (as used by Google Chrome)</li>
 		<li><code>bluepng</code>: light blue 'world' icon (as used by Google's favicon service)</li>
 	</ul>
+	
+	<h3>HTTPS</h3>
+	<p>You can request an HTTPS version like this...</p>
+	<pre><a href="https://getfavicon.appspot.com/http://www.google.com">https://getfavicon.appspot.com/http://www.google.com</a></pre>
+	<p>Or get the secure icon for a domain like this...</p>
+	<pre><a href="http://g.etfv.co/https://encrypted.google.com">http://g.etfv.co/https://encrypted.google.com</a></pre>
 	
 	<h3>Multiple domains</h3>
 	<p>To improve the performance of pages with many favicons on them you can overcome <a href="http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/">browser connection limits</a> by pointing to the icon on different domains. You can see this in action on the <a href="/test/">test page</a> (<a href="https://potato.codebasehq.com/getfavicon/getfavicon/blob/head/trunk/templates/test.html">source</a>) where we use the first letter of the domain to generate a subdomain name. The domains are of the format...</p>
@@ -41,7 +47,7 @@
 		<li><a href="/https://twitter.com/jasoncartwright/status/2374528561"><img src="/https://twitter.com/jasoncartwright/status/2374528561" alt="Twitter" /></a> Twitter (retrieved over HTTPS)</li>
 		<li><a href="/http://www.jasoncartwright.com"><img src="/http://jasoncartwright.com" alt="Author's site"></a> Author's site</li>
 		<li><a href="https://getfavicon.appspot.com/http://docs.python.org/"><img src="https://getfavicon.appspot.com/http://docs.python.org/" alt="Python Docs"></a> Python Docs (delivered using HTTPS)</li>
-		<li><a href="/http://getfavicon.appspot.com"><img src="/http://getfavicon.appspot.com" alt="Getting it's own icon" /></a> Getting it's own icon - before some wiseguy suggests it</li>
+		<li><a href="/http://g.etfv.co"><img src="/http://g.etfv.co" alt="Getting it's own icon" /></a> Getting it's own icon - before some wiseguy suggests it</li>
 	</ul>
 	
 	<h3>More examples</h3>
