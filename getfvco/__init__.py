@@ -1,7 +1,6 @@
 import os,re,logging
 
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import util
+from google.appengine.ext import webapp as webapp2
 from google.appengine.ext.webapp import template
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
@@ -19,7 +18,7 @@ from globals import *
 from models import *
 
 
-class BaseHandler(webapp.RequestHandler):
+class BaseHandler(webapp2.RequestHandler):
   
   def htc(self,m):
     return chr(int(m.group(1),16))
@@ -31,7 +30,7 @@ class BaseHandler(webapp.RequestHandler):
   def printTemplate(self,templateFile,templateVars):
     
     # Find the full system path
-    templateFile = os.path.join(os.path.dirname(__file__), "templates/%s.html" % (templateFile))
+    templateFile = os.path.join(os.path.dirname(__file__), "../templates/%s.html" % (templateFile))
 
     # Write it out
     self.response.out.write(template.render(templateFile,templateVars))
@@ -106,13 +105,17 @@ class IndexPage(BaseHandler):
       if stats.GlobalStat.all().get():
         iconsCached = stats.GlobalStat.all().get().count
       else:
-        iconsCached = None
+        iconsCached = 0
     
       # Icon calculations
       favIconsServedM = round(float(favIconsServed) / 1000000,2)
       iconsCachedM = round(float(iconsCached) / 1000000,2)
-      percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
-      percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
+      try:
+          percentReal = round(float(favIconsServedDefault) / float(favIconsServed) * 100,2)
+          percentCache = round(float(iconFromCache) / float(iconFromCache + iconNotFromCache) * 100,2)
+      except ZeroDivisionError:
+          percentReal = 0
+          percentCache = 0
     
       self.printTemplate("index",{
         "isHomepage":True,
@@ -458,14 +461,9 @@ class PrintFavicon(BaseHandler):
           if not self.iconInPage():
             
             self.writeDefault()
-          
 
 
-def main():
-  
-  logging.getLogger().setLevel(logging.DEBUG)
-  
-  application = webapp.WSGIApplication(
+application = webapp2.WSGIApplication(
   [
     ('/', IndexPage),
     ('/decache/', Decache),
@@ -475,10 +473,5 @@ def main():
     ('/_deleteall', deleteAll),
     ('/.*', PrintFavicon),
   ],
-  debug=False
-  )
-  util.run_wsgi_app(application)
-
-
-if __name__ == '__main__':
-  main()
+  debug=True
+)

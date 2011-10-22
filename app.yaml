@@ -1,8 +1,9 @@
-application: getfavicon
-version: 2
-runtime: python
+application: getfavicon27
+version: 3
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
 - url: .*
-  script: main.py
+  script: getfvco.application
