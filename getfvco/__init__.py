@@ -369,6 +369,9 @@ class PrintFavicon(BaseHandler):
     # MIME Type
     self.response.headers['Content-Type'] = "image/x-icon"
     
+    # CORS
+    self.response.headers['Access-Control-Allow-Origin'] = "*"
+    
     # Set caching headers
     self.response.headers['Cache-Control'] = "public, max-age=2592000"
     self.response.headers['Expires'] = (datetime.now()+timedelta(days=30)).strftime("%a, %d %b %Y %H:%M:%S %z")
