@@ -343,7 +343,21 @@ class PrintFavicon(BaseHandler):
           return True
         
     return False
+
+
+  def iconOverridden(self):
+    
+    overridePath = os.path.join(os.path.dirname(__file__), "../overrides/%s.ico" % self.targetURL[1])
+    
+    if os.path.exists(overridePath):
+      inf("Found override")
+      self.icon = open(overridePath,'r').read()
+      self.writeIcon()
       
+      return True
+    
+    return False
+    
   
   def cacheIcon(self,cacheTo = ["DS","MC"]):
     
@@ -444,26 +458,29 @@ class PrintFavicon(BaseHandler):
     inf("getFavicon for %s" % (self.targetPath))
     
     # Split path to get domain
-    targetURL = urlparse(self.targetPath)
-    self.targetDomain = "http://" + targetURL[1]
+    self.targetURL = urlparse(self.targetPath)
+    self.targetDomain = "http://" + self.targetURL[1]
     
-    inf("Domain is %s" % (self.targetDomain))
+    inf("URL is %s" % (self.targetDomain))
     
-    # In MC?
-    if not self.iconInMC():
+    # Do we have an override?
+    if not self.iconOverridden():
+    
+      # In MC?
+      if not self.iconInMC():
       
-      # In DS?
-      if not self.iconInDS():
+        # In DS?
+        if not self.iconInDS():
+
+            counter.ChangeCount("cacheNone",1)
         
-        counter.ChangeCount("cacheNone",1)
-        
-        # Icon at [domain]/favicon.ico?
-        if not self.iconAtRoot():
+            # Icon at [domain]/favicon.ico?
+            if not self.iconAtRoot():
           
-          # Icon specified in page?
-          if not self.iconInPage():
+              # Icon specified in page?
+              if not self.iconInPage():
             
-            self.writeDefault()
+                self.writeDefault()
 
 
 application = webapp2.WSGIApplication(
