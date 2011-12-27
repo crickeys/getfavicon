@@ -330,7 +330,7 @@ class PrintFavicon(BaseHandler):
           
         except:
 
-          inf("Failed to retrieve icon to found in page")
+          inf("Failed to retrieve icon found in page")
 
           return False
 
