@@ -417,7 +417,7 @@ class PrintFavicon(BaseHandler):
       )
       newFavicon.put()
 
-      memcache.add("icon-" + self.targetDomain, "DEFAULT", )
+      memcache.add("icon-" + self.targetDomain, "DEFAULT", MC_CACHE_TIME)
 
     counter.ChangeCount("favIconsServedDefault",1)
     
